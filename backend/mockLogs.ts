@@ -1,5 +1,5 @@
 import faker from "faker";
-import { readFile, writeFile,promises } from "fs";
+import { writeFile, promises } from "fs";
 import {format} from 'date-fns';
 import path from "path";
 
