@@ -29,7 +29,9 @@ function addMockLogs() {
     },'');
 
     writeFile(path.resolve(__dirname,'./logs.txt'),logsString,(err)=>{
-        console.log(err);
+        if(err){
+            console.log(err);
+        }
     });
 }
 
