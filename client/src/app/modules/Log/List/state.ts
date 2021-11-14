@@ -18,7 +18,7 @@ export const fetchLogs = createAsyncThunk(
     async () => {
       const response = await logService.getLogs();
 
-      return response.data;
+      return response;
     }
   );
 
@@ -30,7 +30,7 @@ export const logSlice = createSlice({
         builder.addCase(fetchLogs.pending,(state)=>{
             state.status ='loading';
         }).addCase(fetchLogs.fulfilled,(state,action)=>{
-            state.list = action.payload;
+            state.list = action.payload.list;
             state.status = 'idle';
         }).addCase(fetchLogs.rejected,(state)=>{
             state.status ='failed';
