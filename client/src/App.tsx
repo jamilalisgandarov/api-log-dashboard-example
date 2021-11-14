@@ -1,9 +1,10 @@
 import React from 'react';
+import { LogList } from './app/modules/Log/List/components';
 
 function App() {
   return (
     <div className="App">
-      Empty
+      <LogList />
     </div>
   );
 }
