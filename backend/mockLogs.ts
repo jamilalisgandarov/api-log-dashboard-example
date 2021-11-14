@@ -1,5 +1,5 @@
 import faker from "faker";
-import { writeFile } from "fs";
+import { readFile, writeFile,promises } from "fs";
 import {format} from 'date-fns';
 import path from "path";
 
@@ -31,6 +31,34 @@ function addMockLogs() {
     writeFile(path.resolve(__dirname,'./logs.txt'),logsString,(err)=>{
         console.log(err);
     });
+}
+
+export async function addNewLog(){
+    try {
+        const data = await promises.readFile(path.resolve(__dirname,'./logs.txt'),"utf-8");
+
+        if(data){
+            try {
+            const logArray = data.toString().split('\n').filter(Boolean);
+            const newLog = {
+                date: format(
+                    new Date(),
+                    'yyyy-MM-dd HH:mm:ss.s'
+                ),
+                description: faker.lorem.sentence(),
+                type: faker.random.arrayElement(["ERROR","INFO","WARNING"])
+            };
+            logArray.push(`${newLog.date} ${newLog.type} ${newLog.description}`);
+
+            return promises.writeFile(path.resolve(__dirname,'./logs.txt'),logArray.join('\n'));
+            } catch (error) {
+                throw Error("Couldn't write file");
+            }
+        }
+
+    } catch (error) {
+        throw Error("Couldn't read file");
+    }
 }
 
 addMockLogs();
