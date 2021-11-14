@@ -17,7 +17,9 @@ export class HttpClient {
         this.api = axios.create({ baseURL, url });
 
         this.api.interceptors.response.use(
-            res => Promise.resolve(res.data),
+            res => {
+                return Promise.resolve(res.data);
+            },
             err => {
                 console.log(err);
 
