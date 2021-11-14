@@ -18,6 +18,8 @@ LogsRouter.get('/', async (req, res: Response) => {
                 type,
                 description: (desc).join(' '),
                };
+            }).sort(function(a,b){
+                return new Date(a.date).getTime()-new Date(b.date).getTime();
             });
 
             res.json(parsedLogs).status(200);
